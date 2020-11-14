@@ -1,0 +1,32 @@
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+
+        visited = {}
+        
+        ans = self.dfs(0,0,m,n,visited)
+        
+        return ans
+        
+    def dfs(self,i,j,m,n,visited):
+        
+        
+        down = 0
+        right = 0
+        
+        if i == m-1 and j == n-1:
+            return 1
+        
+        
+        if i+1 < m and (i+1,j) not in visited: 
+            down = self.dfs(i+1,j,m,n,visited)
+            visited[(i+1,j)] = down
+        elif (i+1,j) in visited: 
+            down = visited[(i+1,j)]
+        
+        if j+1 < n and (i,j+1) not in visited: 
+            right = self.dfs(i,j+1,m,n,visited)
+            visited[(i,j+1)] = right
+        elif (i,j+1) in visited: 
+            right = visited[(i,j+1)]
+            
+        return down + right
