@@ -24,5 +24,4 @@ bool hasCycle(struct ListNode *head) {
         back = back->next;    
     }
     return false;
-    
 }
