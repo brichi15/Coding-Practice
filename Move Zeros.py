@@ -4,19 +4,16 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         
+        n = len(nums)
         
-        zero_holder = 0                               
-        i = 0
-        while i < len(nums):
+        zhold = 0
         
-            if nums[zero_holder] != 0:                  ## stop at first zero
-                zero_holder += 1
-                
-            if nums[i] != 0 and i > zero_holder:        ##swap
-                
-                nums[zero_holder] = nums[i]
-                nums[i] = 0
-        
+        for i in range(n):
             
-            i +=1
-                        
+            if nums[i] != 0:
+                
+                temp = nums[zhold]
+                nums[zhold] = nums[i]
+                nums[i] = temp
+                
+                zhold += 1
