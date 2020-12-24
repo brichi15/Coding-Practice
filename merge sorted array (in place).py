@@ -4,9 +4,6 @@ class Solution:
         Do not return anything, modify nums1 in-place instead.
         """
         
-        
-            
-        
         n1_ind = m-1
         if m <= 0: n1_ind = m+1
         
