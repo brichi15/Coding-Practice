@@ -4,29 +4,18 @@ class Solution:
         
         if not intervals:
             return True
+
+        intervals.sort(key=lambda x: x[0])
         
-        table = dict()
+        print(intervals)
         
-        for meeting in intervals:
+        prev_end = intervals[0][1]
+        for meeting in intervals[1:]:
             
-            if meeting[0] not in table:
-                table[meeting[0]] = meeting[1]
-                
-            else:
+            if prev_end > meeting[0]:
                 return False
             
-        
-        start_times = list(table.keys())
-        
-        start_times.sort()
-        
-        end_time = table[start_times[0]]
-        
-        for s in start_times[1:]:
-            
-            if end_time > s:
-                return False
-            
-            end_time = table[s]
+            prev_end = meeting[1]
             
         return True
+        
