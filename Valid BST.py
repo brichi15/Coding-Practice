@@ -1,24 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
         
-        stack = [-(2**31 +1)]
-        
-        def dfs(root):
+        def validate(root, min_val, max_val):
             
-            left = True
-            right = True
+            if not root:
+                return True
             
-            if root.left:
-                left = dfs(root.left)
-            
-            if root.val <= stack[-1]:
+            if min_val != None and root.val <= min_val:
                 return False
             
-            stack.append(root.val)
+            if max_val != None and root.val >= max_val:
+                return False
             
-            if root.right:
-                right = dfs(root.right)
-                
+            left = validate(root.left,min_val,root.val)
+            right = validate(root.right,root.val,max_val)
+            
             return left and right
+        
+        return validate(root,None,None)
             
-        return dfs(root)
+        
