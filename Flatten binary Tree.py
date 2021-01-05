@@ -28,7 +28,7 @@ class Solution:
                 root.left = None
                 tail.right = right
                 
-            if tail and tail.right:
+            if tail.right:
                 tail = flatten(tail.right)
                 
             return tail
