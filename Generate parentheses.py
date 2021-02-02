@@ -1,40 +1,21 @@
 class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
-        
-        res = []
-        
-        
+    def generateParenthesis(self, n: int) -> List[str]:  
         i = n               #stack counter for open brace
         j = 0               #stack counter for close brace
-
-        combo = ""
         
         def dfs(i,j,combo):
             
-            
             if not i and not j:
-                res.append(combo)
-                return
+                return [combo]
                 
-            if i and j:
-                combo += "("                    ## add front brace
-                dfs(i-1,j+1,combo)
+            cur_combo = []
                 
-                combo = combo[:-1]              ## remove front brace add back brace
-                combo += ")"
-     
-                dfs(i,j-1,combo)
+            if i:
+                cur_combo += dfs(i-1,j+1,combo + "(")
                 
-            elif j and not i:
-                combo += ")"
-                dfs(i,j-1,combo)
+            if j:
+                cur_combo += dfs(i,j-1,combo + ")")
                 
-            else:
-                combo += "("
-                dfs(i-1,j+1,combo)
+            return cur_combo
                 
-                
-        dfs(i,j,combo)
-        
-        return res
-            
+        return dfs(i,j,"")
