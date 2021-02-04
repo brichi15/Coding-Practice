@@ -1,32 +1,22 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         
-        if not nums: return 0
+        n = len(nums)
+        memo = {}
         
-        
-        visited = dict()
-        
-        
-        def dfs(ind):
+        def maximizePath(ind):
             
-        
-            if ind >= len(nums): return 0
-
-            if ind+2 in visited: p1 = visited[ind+2]
-            else: 
-                p1 = dfs(ind+2)
-                visited[ind+2] = p1
+            two = 0
+            three = 0
+            
+            if ind+2 < n: 
+                if ind+2 not in memo: memo[ind+2] = maximizePath(ind+2)
+                two = nums[ind+2] + memo[ind+2]
                 
-            if ind+3 in visited: p2 = visited[ind+3]
-            else: 
-                p2 = dfs(ind+3)
-                visited[ind+3] = p2
+            if ind+3 < n: 
+                if ind+3 not in memo: memo[ind+3] = maximizePath(ind+3)
+                three = nums[ind+3] + memo[ind+3]
+            
+            return max(two,three)
         
-            return nums[ind] + max(p1,p2)
-                
-                
-        first = dfs(0)
-        second = dfs(1)
-        
-        
-        return max(first,second)
+        return maximizePath(-2)
