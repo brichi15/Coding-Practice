@@ -1,28 +1,26 @@
-class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        
-        head = l1
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
         carry = 0
-
-        while l1:
+        head = ListNode(0,None)
+        ptr = head
+        
+        while l1 or l2 or carry:
             
-            if l2: l1.val += l2.val + carry
-            else: l1.val += carry
-                
-            carry = 0
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
             
+            t_sum = val1+val2+carry
+            carry = int(t_sum/10)
+            digit = t_sum%10
             
-            if l1.val > 9:                      #update carry if necessary
-                carry = int(l1.val/10)
-                l1.val = l1.val%10
-                
-            if (not l1.next) and ((l2 and l2.next) or carry > 0):   ##if l1 done l2 not done or carry, add new node to l1
-                l1.next = ListNode(0,None)
-                
-            l1 = l1.next
+            ptr.next = ListNode(digit,None)
+            ptr = ptr.next
+            if l1: l1 = l1.next
             if l2: l2 = l2.next
-                
-                
             
-                
-        return head
+        return head.next

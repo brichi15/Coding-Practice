@@ -1,24 +1,24 @@
-class Solution:
-    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+class Solution(object):
+    def combinationSum3(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
         
-        output = []        
-        combo = []
+        res = []
+        def genCombos(n,k,num,combo):
         
-        def helper(combo,n,s):
-            
-            if len(combo) == k and n == 0:
-                output.append(combo)
+            if num > 10 or k < 0 or n < 0:
                 return
             
-            if k < 0 or n < 0: return
+            if k == 0 and n == 0:
+                res.append(combo)
+                return
             
-            for num in range(s,10):
-                
-                if num > n: continue
-                
-                s+=1 
-                helper(combo+[num],n-num,s)
+            genCombos(n-num,k-1,num +1,combo + [num])
+            genCombos(n, k, num+1, combo)
+            
+        genCombos(n,k,1,[])    
         
-        helper(combo,n,1)
-        
-        return output
+        return res

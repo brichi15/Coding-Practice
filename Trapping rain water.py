@@ -29,3 +29,25 @@ class Solution:
                 res += min_peak-height[i]
         
         return res
+
+##-------------------------stack method---------------------------------##
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        
+        stack = []
+        count = 0
+        
+        for i in range(len(height)):
+            while stack and height[stack[-1]] < height[i]:
+                fill_ind = stack.pop()
+                
+                if stack:
+                    count += (min(height[i],height[stack[-1]])-height[fill_ind]) * (i-stack[-1]-1)
+                    
+            stack.append(i)
+            
+        return count

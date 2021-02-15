@@ -31,3 +31,18 @@ struct ListNode* reverseList(struct ListNode* head) {
     return prev;
     
 }
+
+//------------------------------recursive----------------------------//
+'''
+    def revHelper(prev,head):
+        if not head:
+            return prev
+        
+        nex = head.next
+        head.next = prev
+
+        return revHelper(head,nex)
+        
+
+    return revHelper(None,head)
+'''
