@@ -1,28 +1,22 @@
 import heapq
-class Solution:
-    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
         
-        if not intervals:
-            return 0
+        intervals.sort(key=lambda x: x[0])       
+        heap = []
         
-        intervals.sort(key=lambda x: x[0])
-        
-        minHeap = []
-        
-        heapq.heappush(minHeap,(intervals[0][1],intervals[0][0]))
-        
-        for next_meet in intervals[1:]:
+        for start,end in intervals:
             
-            temp = heapq.heappop(minHeap)
-            cur_meet = [temp[1],temp[0]] 
-            
-            if cur_meet[1] <= next_meet[0]:
-                cur_meet = next_meet
-            else:
-                heapq.heappush(minHeap,(next_meet[1],next_meet[0]))
-            
-            heapq.heappush(minHeap,(cur_meet[1],cur_meet[0]))
-            
-        return len(minHeap)
+            if heap:
+                h_end,h_start = heapq.heappop(heap)
+                if h_end > start:
+                    heapq.heappush(heap,(h_end,h_start))
                 
+            heapq.heappush(heap,(end,start))
+            
+        return len(heap)
             
