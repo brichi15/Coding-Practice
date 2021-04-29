@@ -8,7 +8,6 @@ class Solution:
         table = {0:1}
         count = 0
         
-        
         for i in range(n):
             cur_sum += nums[i]
             
